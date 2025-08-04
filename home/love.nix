@@ -15,7 +15,7 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      nrs = "sudo nixos-rebuild switch --flake .";
+      nrs = "sudo nixos-rebuild switch --flake .; nix flake update";
       edit = "cd /etc/nixos;sudo hx";
       server = "ssh lovew@100.88.187.13";
     };
