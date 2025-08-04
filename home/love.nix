@@ -9,6 +9,7 @@
     ./helix.nix
     ./fastfetch.nix
     ./alacritty.nix
+    ./dunst.nix
   ];
   
   programs.bash = {
@@ -24,7 +25,7 @@
     '';
   };
 
-      
+          
   home.packages = with pkgs; [
     bat
     helix
@@ -35,5 +36,6 @@
     blueman
     stremio
     flameshot
+    picom
   ];
 }

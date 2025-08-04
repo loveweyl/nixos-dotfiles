@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/nvidia.nix
     ];
 
   
@@ -31,7 +32,6 @@
     enable = true;
     powerOnBoot = true;
   };
-    
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 
@@ -61,8 +61,10 @@
   services.picom = {
     enable = true;
     backend = "glx";
+    vSync = true;
     fade = true;
   };
+
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -104,6 +106,10 @@
     xwallpaper
     pcmanfm
     rofi
+    git
+    pciutils
+    libnotify
+    dunst
   ];
 
   fonts.packages = with pkgs; [
