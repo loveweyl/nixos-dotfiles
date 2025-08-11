@@ -107,7 +107,31 @@ for vt in range(1, 8):
     )
 
 
+#             BAR COLORS.
+colors = [
+    ["#3C3836", "#3C3836"], # bg 0
+    ["#FBF1C7", "#FBF1C7"], # text 1 
+    ["#1D2021", "#1D2021"], # selected bg 2
+    ["#EBDBB2", "#EBDBB2"], # fg selected 3
+    ["#A89984", "#A89984"], # fg non selected 4
+    ["#98971A", "#98971A"], # green 5
+    ["#B16286", "#B16286"], # purple 6
+    ["#689D6A", "#689D6A"], # aqua 7
+    ["#458558", "#458558"], # blue 8
+    ["#7C6F64", "#7C6F64"], # light bg 9
+    ["#D3869B", "#D3869B"], # strong purple 10
+    ["#83A598", "#83A598"], # strong blue 11
+]
+
+
+group_names = ["media", "code", "chat", "www", "music"]
 groups = [Group(i) for i in "123456789"]
+
+
+#keys = []
+#for i, name in enumerate(group_names):
+#    keys.append(Key([mod], str(i + 1), lazy.group[name].toscreen()))
+#    keys.append(Key([mod, "shift"], str(i + 1), lazy.window.togroup(name)))
 
 for i in groups:
     keys.extend(
@@ -160,10 +184,43 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 10,
+                    foreground = colors[2],
+                    background = colors[2]
+                ),
+                widget.GroupBox(
+                    font = "JetBrains Mono SemiBold",
+                    fontsize = 12,
+                    margin_y = 0,
+                    margin_x = 0,
+                    padding_y = 5,
+                    padding_x = 5,
+                    borderwidth = 1,
+                    active = colors[1],
+                    inactive = colors[4],
+                    rounded = False,
+                    highlight_method = "block",
+                    this_current_screen_border = colors[0],
+                    this_screen_border = colors[2],
+                    foreground = colors[2],
+                    background = colors[2],
+                ),
                 widget.Prompt(),
-                widget.WindowName(),
+                widget.WindowName(
+                    padding_y = 5,
+                    borderwidth = 1,
+                    margin_y = 5,
+                    fontsize = 12,
+                    font = "JetBrains Mono SemiBold",
+                ),
+                widget.TextBox(text='◀', padding=0, fontsize=44, foreground = colors[10]),
+                widget.Bluetooth(
+                    default_text = '{connected_devices}',
+                    default_show_battery = True,
+                    background = colors[10],
+                ),             
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
@@ -172,23 +229,36 @@ screens = [
                 ),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
-                widget.Systray(),
-                widget.TextBox(text='|', padding=10, fontsize=14),
+                widget.TextBox(text='◀', padding=0, fontsize=44, foreground = colors[11], background = colors[10]),
+                widget.Systray(
+                    background = colors[11],
+                ),
+                widget.TextBox(text='◀', padding=0, fontsize=44, foreground = colors[10], background = colors[11]),
+                widget.CurrentLayout(
+                    background = colors[10],
+                ),               
+                widget.TextBox(text='◀', padding=0, fontsize=44, foreground = colors[11], background = colors[10]),
                 widget.PulseVolume(
-                    fmt="VOL: {}",
+                    fmt="{}",
                     limit_max_volume=True,
                     update_interval=0.5,
+                    background = colors[11],
                 ),
-                widget.TextBox(text='|', padding=10, fontsize=14),
+                widget.TextBox(text='◀', padding=0, fontsize=44, foreground = colors[10], background = colors[11]),
                 widget.Backlight(
                     backlight_name="intel_backlight",
                     brightness_file="brightness",
                     max_brightness_file="max_brightness",
                     step=5,
                     fmt='☀️ {}',
+                    background = colors[10],
                 ),
-                widget.Clock(format="| %Y-%m-%d | %a %I:%M %p"),
-                widget.TextBox(text='|', padding=10, fontsize=14),
+                widget.TextBox(text='◀', padding=0, fontsize=44, foreground = colors[11], background = colors[10]),
+                widget.Clock(
+                    format="%A, %B %d - %H:%M",
+                    background = colors[11],
+                ),
+                widget.TextBox(text='◀', padding=0, fontsize=44, foreground = colors[10], background = colors[11]),
                 widget.Battery(
                     format = '{char} {percent:2.0%}',
                     charge_char = '⚡',
@@ -197,9 +267,11 @@ screens = [
                     full_char = '🔌',
                     show_short_text = False,
                     update_interval = 30,
+                    background = colors[10],
                 ),
             ],
             24,
+            background=colors[2],
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
