@@ -15,12 +15,12 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      nrs = "sudo nixos-rebuild switch --flake .; nix flake update";
+      nrs = "sudo nixos-rebuild switch --flake .;sudo nix flake update";
       edit = "cd /etc/nixos;sudo hx";
       server = "ssh lovew@100.88.187.13";
     };
     initExtra = ''
-      export PS1='\[\e[38;5;77;1m\]\u\[\e[0m\] in \[\e[38;5;79m\]\w\[\e[0m\] \\$ '
+      export PS1='\[\e[38;5;167m\]\u\[\e[0m\] in \[\e[38;5;103m\]\w\[\e[0m\] \\$ '
       fastfetch
     '';
   };
@@ -37,5 +37,11 @@
     stremio
     flameshot
     picom
+    steam
+    clang
+    # lsp servers
+    pyright
+    ruff
+    clang-tools
   ];
 }
